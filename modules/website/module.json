@@ -1,0 +1,9 @@
+{
+	"modules":
+	{
+		"home":	  			{"url":"/modules/website/task/home.html", "name_for_search":"Home page"},
+		"lab-study":	  	{"url":"/modules/website/task/lab-study.html", "name_for_search":"Lab study"},
+		"meet-the-team":	{"url":"/modules/website/task/meet-the-team.html", "name_for_search":"Meet the team"},
+		"more":	  			{"url":"/modules/website/task/more.html", "name_for_search":"More"}
+	}
+}
