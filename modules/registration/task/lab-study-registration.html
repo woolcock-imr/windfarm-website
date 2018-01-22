@@ -1,0 +1,223 @@
+<section class="w3s">
+    <form id=F__ID class="w3-padding-0 w3-margin-0">
+        <div class="w3-container w3-content-2 w3-row " style="background-image:url('__BASE__/woolcock-imr/windfarm/images/windfarm.jpg');background-repeat: no-repeat; ">
+            <div class="w3-center">
+                <h2 class="w3-text-white">Registration</h2>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="First_Name__ID" name="First_Name__ID" placeholder="First Name*">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="Last_Name__ID" name="Last_Name__ID" placeholder="Last Name*">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id=Phone__ID name="Phone__ID" placeholder="Phone*">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id=Email__ID name="Email__ID" placeholder="Email*">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id=Postcode__ID name="Postcode__ID" placeholder="Postcode*">
+            </div>
+            <div class="form-group">
+                <label class=label__ID>How did you find out about this study?</label><br>
+                <select id=Study_find__ID Name=Study_find__ID>
+                <option value=''> Please Select One</option>
+                <option value='1' >Woolcock Institute website</option>
+                <option value='2' >Sleep Physician referral</option>
+                <option value='3' >Advertising flier</option>
+                <option value='4' >Internet search</option>
+                <option value='5' >Facebook</option>
+                <option value='6' >LinkedIn</option>
+                <option value='7' >Twitter</option>
+                <option value='8' >University website</option>
+                <option value='9' >Radio</option>
+                <option value='10' >TV</option>
+                <option value='11' >Newspaper article</option>
+                <option value='12' >Word of mouth</option>
+                <option value='13' >Not specified</option>
+                <option value='14' >Sleep Health Foundation website</option>
+                <option value='15' >Received an email</option>
+                <option value='16' >GP</option>
+                <option value='17' >Pharmacy</option>
+                <option value='18' >Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id=Study_find_other__ID name="Study_find_other__ID" placeholder="Other">
+            </div>
+            <div>
+            <input class=btn__ID type=button id=submit__ID value="Submit" />
+            </div>
+            <div style='text-align:center;font-size:9pt;color:#fff'>
+                The Woolcock Institute of Medical Research recognises the importance of your personal information and privacy. <br>
+                We will use your provided details only to contact you about information we believe will be of interest to you. <br><br>
+                <a href="http://woolcock.org.au/s/Privacy-Policy-Jan-2016-Final.pdf" target="_blank" >Click here to read our full Privacy Policy.</a>
+            </div>
+        </div>
+    </form>
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------------
+        var _op,_module=$vm.module_list[$vm.vm['__ID'].name];
+        //Vm Include:__BASE__/woolcock-imr/volunteer-database/common-code/form.js
+        //-------------------------------------
+        $('#D__ID').on('load',function(){
+            $('#F__ID')[0].reset();
+        })
+		/*
+        var external_registration_pid       =_module.var.external_registration_pid;
+        var screening_participant_setup_pid =_module.var.screening_participant_setup_pid;
+        var screening_participant_pid       =_module.var.screening_participant_pid;
+        var registration_thanks             =_module.var.registration_thanks;
+		*/
+		var external_registration_pid       ="20008858";
+        var screening_participant_setup_pid ="20009059";
+        var screening_participant_pid       ="20009058";
+        //var registration_thanks             ="";
+        //-------------------------------------
+        $('#submit__ID').on('click',function(){
+            var record={}
+            record.First_Name=$('#First_Name__ID').val();
+            record.Last_Name=$('#Last_Name__ID').val();
+            record.Phone_Number=$('#Phone__ID').val();
+            record.Email=$('#Email__ID').val();
+            record.Postcode=$('#Postcode__ID').val();
+            record.Study_find=$('#Study_find__ID').val();
+            record.Study_find_other=$('#Study_find_other__ID').val();
+            if($('#Email__ID').val()===''){
+                alert("Email is compulsory");
+                return;
+            }
+            if($('#First_Name__ID').val()===''){
+                alert("First name is compulsory");
+                return;
+            }
+            if($('#Last_Name__ID').val()===''){
+                alert("Last name is compulsory");
+                return;
+            }
+            if($('#Phone__ID').val()===''){
+                alert("Phone is compulsory");
+                return;
+            }
+            if($('#Postcode__ID').val()===''){
+                alert("Postcode is compulsory");
+                return;
+            }
+            var re=/^(\d{4})$/;
+            if(re.test($('#Postcode__ID').val())===false){
+                $vm.alert("Invalid postcode format");
+                return;
+            }
+            var reemail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;;
+            if(reemail.test($('#Email__ID').val())===false){
+                $vm.alert("Invalid email format");
+                return;
+            }
+
+            var dbv={};
+            dbv.S1=$('#Email__ID').val();
+            dbv.S2=$('#Email__ID').val();
+
+            var req={cmd:"s1_s2_exist",db_pid:external_registration_pid,s1:dbv.S1,s2:dbv.S2};							//regidtration: 20008858
+            $VmAPI.request({data:req,callback:function(res){
+                if(res.ret==='0'){
+                    var req={cmd:"add_record_anonymous",db_pid:external_registration_pid,data:record,dbv:dbv};
+                    $VmAPI.request({data:req,callback:function(res){
+                        create_screening_participant_record(res);
+                        $vm.load_module_by_name(registration_thanks,$vm.root_layout_content_slot,{});
+                    }});
+                }
+                else{
+                    alert('The email already exists, so you have already registered.')
+                }
+            }});
+        })
+        //-------------------------------------
+        _after_submit=function(I,res,n,_dbv){
+            create_screening_participant_record(res);
+        }
+        //-------------------------------------
+        var create_screening_participant_record=function(res){
+            var registration_id=res.uid;
+            var row_data={Registration_ID:registration_id};
+            var dbv={S1:registration_id};
+            var req={cmd:"add_record_anonymous",db_pid:screening_participant_pid,data:row_data,dbv:dbv};			//screening_participant: 20009058
+            $VmAPI.request({data:req,callback:function(res2){
+                create_screening_participant_setup_record(registration_id,res2);
+            }})
+        }
+        //-------------------------------------
+        var create_screening_participant_setup_record=function(registration_id,res){
+            //var username=registration_id+"-"+screening_participant_setup_pid;										//screening_participant_setup_pid: 20009059;
+			var username=res.uid+"-"+screening_participant_setup_pid;												//screening_participant_setup_pid: 20009059;
+            var password=$vm.vm_password(8,false);
+            var List="20009060,20009061,20009073,20009079,20009298,20009063,20009064,20009190,20009074,20009075,20009076,20009078,20009080,";
+            List+="20009081,20009083,20009084,20009085,20009086,20009087,20009088,20008713";
+            /*
+            var List="20009060,20009061,20009073,20009079,20009298,20009063,20009064,20009190,20009074,20009075,20009076,20009078,20009080,";
+            List+="20009081,20009083,20009084,20009085,20009086,20009087,20009088,20009090,20009091,20008713";
+            */
+            var data={Login_ID:username,Password:password,List:List};
+            var dbv={PUID:res.uid,S2:username,S3:password};
+            var req={cmd:"add_record_anonymous",db_pid:screening_participant_setup_pid,data:data,dbv:dbv};
+            $VmAPI.request({data:req,callback:function(res2){
+                send_email(username,password);
+            }})
+        }
+        //-------------------------------------
+        var send_email=function(username,password){
+            var From_Address="windfarmstudy@woolcock.org.au";
+            var From_Name="Woolcock Institute of Medical Research";
+            var To=$('#Email__ID').val();
+            var Title="Wind farms Registration";
+            var Body="Thank you for registering your interest in our research on wind farms and human health. To get started, please complete our online questionnaire which will allow us to assess whether you may be a suitable participant in this study. Simply click on the website link below and enter the provided Username and Password:<br />"
+    		Body+="&nbsp;<br />"
+    		Body+="&nbsp;<br />";
+            Body+="Website: https://rt.woolcock.org.au/online-questionnaires.html<br>";
+    		Body+="Username: "+username+"<br>";
+    		Body+="Password: "+password+"<br>";
+    		Body+="&nbsp;<br />"
+    		Body+=" If you are be unable to complete the questionnaire today, your answers will be saved and you can use the login details above to continue the questionnaire"
+        Body+="<br>If you have any questions about completing our questionnaire, please email Windfarmstudy@woolcock.org.au"
+    		Body+="&nbsp;<br />"
+    		Body+="&nbsp;<br />"
+    		$VmAPI.request({data:{cmd:'send_email',From_Address:From_Address,From_Name:From_Name,To:To,Title:Title,Body:Body},callback:function(res){
+                //alert('Thank you for your registration. An email has been sent to '+$('#Email__ID').val()+' with instructions for next step.');
+            }})
+
+        }
+    }
+</script>
+<style>
+VmInclude:__CURRENT_PATH__/w3.css
+
+.w3s input[type=text], .w3s select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-color: black;
+}
+.w3s input[type=button] {
+    width: 100%;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #428bca;
+    border-color: #357ebd;
+    font-size: 34px
+}
+.w3s input[type=button]:hover {
+    background-color: #357ebd;
+}
+
+</style>

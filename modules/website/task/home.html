@@ -35,7 +35,7 @@
 					<a href=#>frequently asked questions page.</a><br>
 					All visits at the Woolcock Institute of Medical Research, Glebe, Sydney
 				</p>
-				<button type=button class='btn btn-primary' style='margin-right:80px'>More Information</button> <button type=button class='btn btn-primary'>Register</button>
+				<button id=lab_study_more__ID type=button class='btn btn-primary' style='margin-right:80px'>More Information</button> <button id=lab_study_registration__ID type=button class='btn btn-primary'>Register</button>
 				<br><br>
 			</div>
 			<div class="col-sm col-lg-6 text-center"  style='color:#fff;background-color:#2B6CA3'>
@@ -53,7 +53,7 @@
 					We will also ask you to have a blood test.<br>
 					Currently recruiting in *postcode/Suburb*<br>
 				</p>
-				<button type=button class='btn btn-primary' style='margin-right:80px'>More Information</button> <button type=button class='btn btn-primary'>Register</button>
+				<button id=home_study_more__ID type=button class='btn btn-primary' style='margin-right:80px'>More Information</button> <button type=button class='btn btn-primary'>Register</button>
 				<br><br>
 			</div>
 		</div>
@@ -68,13 +68,19 @@
 </div>
 <script>
 	function F__ID(){
+		//----------------------------------------
+		var prefix=$vm.module_list[$vm.vm['__ID'].name].prefix;
         //----------------------------------------
-		$('#a1__ID').on('click',function(){
-			$vm.nav_load_module('sfix');
+		$('#lab_study_more__ID').on('click',function(){
+			$vm.nav_load_module(prefix+'lab-study');
 		})
 		//----------------------------------------
-		$('#a2__ID').on('click',function(){
-			$vm.nav_load_module('sfix');
+		$('#lab_study_registration__ID').on('click',function(){
+			$vm.nav_load_module(prefix+'lab-study-registration');
+		})
+		//----------------------------------------
+		$('#home_study_more__ID').on('click',function(){
+			$vm.nav_load_module(prefix+'home-study');
 		})
 		//----------------------------------------
 	}

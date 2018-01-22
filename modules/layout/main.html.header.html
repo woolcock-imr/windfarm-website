@@ -17,9 +17,16 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_home');">Home</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_lab-study');">Lab Study</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_meet-the-team');">Meet the Team</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_more');">More</a></li>
-                <!--<li><a class="nav-link" onclick="$vm.nav_click_process('vm_signinout');" name=signinout><i class="fa fa-user"></i> Sign In/Out</a></li>-->
+				<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_home-study');">Home Study</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_contact-us');">Contact Us</a></li>
+				<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="nav_dropdown__ID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a></a>
+                    <div class="dropdown-menu" aria-labelledby="nav_dropdown__ID">
+						<a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_woolcock');" >About the Woolcock Institute</a>
+						<a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_meet-the-team');" >Meet the team</a>
+						<a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_news');">News</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -79,7 +86,7 @@
 		#navbars__ID a{
 			color:#000;
             cursor:pointer;
-			margin-right:100px;
+			margin-right:60px;
         }
 		#navbars__ID a:hover{
 			color:red;
@@ -104,6 +111,9 @@
 			#navbars__ID a{
 				color:#fff;
 	        }
+			.dropdown-menu a{
+				color:#000!Important;
+			}
 	        #form__ID{
 		        padding-right:0px;
 	        }
