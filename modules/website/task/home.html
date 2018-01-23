@@ -35,7 +35,8 @@
 					<a href=#>frequently asked questions page.</a><br>
 					All visits at the Woolcock Institute of Medical Research, Glebe, Sydney
 				</p>
-				<button id=lab_study_more__ID type=button class='btn btn-primary' style='margin-right:80px'>More Information</button> <button id=lab_study_registration__ID type=button class='btn btn-primary'>Register</button>
+				<button id=lab_study_more__ID type=button class='btn btn-primary' style='margin-right:80px'>More Information</button>
+				<button id=lab_study_registration__ID type=button class='btn btn-primary'>Register</button>
 				<br><br>
 			</div>
 			<div class="col-sm col-lg-6 text-center"  style='color:#fff;background-color:#2B6CA3'>
@@ -53,17 +54,20 @@
 					We will also ask you to have a blood test.<br>
 					Currently recruiting in *postcode/Suburb*<br>
 				</p>
-				<button id=home_study_more__ID type=button class='btn btn-primary' style='margin-right:80px'>More Information</button> <button type=button class='btn btn-primary'>Register</button>
+				<button id=home_study_more__ID type=button class='btn btn-primary' style='margin-right:80px'>More Information</button>
+				<button id=home_study_registration__ID type=button class='btn btn-primary'>Register</button>
 				<br><br>
 			</div>
 		</div>
 	</div>
 	<div style='background-color:#fff'>
+		<br><br>
 		<div class="container-fluid" style='max-width:1000px'>
 			<img width=230 src='__CURRENT_PATH__/home.html.logo1.png' _style='margin-top:0px;margin-bottom:-10px'></img>
 			<img width=280 src='__CURRENT_PATH__/home.html.logo2.png' _style='margin-top:0px;margin-bottom:-10px'></img>
 			<div style="display:inline-block;color:#666;font-size:12px;padding-left:20px">This website has been approved by the SLHD Ethics Committee (RPAH Zone)<br>Protocol No. 16-0073  Version 1.0 </div>
 		<div>
+		<br><br>
 	</div>
 </div>
 <script>
@@ -81,6 +85,10 @@
 		//----------------------------------------
 		$('#home_study_more__ID').on('click',function(){
 			$vm.nav_load_module(prefix+'home-study');
+		})
+		//----------------------------------------
+		$('#home_study_registration__ID').on('click',function(){
+			$vm.nav_load_module(prefix+'home-study-registration');
 		})
 		//----------------------------------------
 	}
