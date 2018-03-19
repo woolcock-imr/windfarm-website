@@ -1,0 +1,12 @@
+{
+	"modules":
+	{
+		"home":	  			{"url":"website/modules/home.html", "name_for_search":"Home page"},
+		"lab-study":	  	{"url":"website/modules/lab-study.html", "name_for_search":"Lab study"},
+		"home-study":	  	{"url":"website/modules/home-study.html", "name_for_search":"Home study"},
+		"contact-us":		{"url":"website/modules/contact-us.html", "name_for_search":"Contact us"},
+		"woolcock":			{"url":"website/modules/woolcock.html", "name_for_search":"Woolcock"},
+		"meet-the-team":	{"url":"website/modules/meet-the-team.html", "name_for_search":"Meet the team"},
+		"news":	  			{"url":"website/modules/news.html", "name_for_search":"News"}
+	}
+}
