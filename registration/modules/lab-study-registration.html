@@ -168,7 +168,7 @@
     		Body+="&nbsp;<br />"
     		Body+="&nbsp;<br />"
     		$VmAPI.request({data:{cmd:'send_email',From_Address:From_Address,From_Name:From_Name,To:To,Title:Title,Body:Body},callback:function(res){
-                $vm.alert('Thank you for your registration. An email has been sent to '+$('#Email__ID').val()+' with instructions for next step.');
+                $vm.alert('Thank you for your registration. An email has been sent to '+$('#Email__ID').val()+' with instructions for the next step.');
             }})
         }
     }
