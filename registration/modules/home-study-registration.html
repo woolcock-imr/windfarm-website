@@ -1,7 +1,5 @@
 <br>
 <div class="container" style='border:1px solid #888;max-width:700px;background-color:#fff;padding-left:0;padding-right:0'>
-	Start soon...
-	<!--
 	<div id=header__ID>
 		<h2>Registration</h2>
 	</div>
@@ -9,33 +7,38 @@
 	    <form id=F__ID>
 			<div class="row row__ID">
 				<div class="col">
-	                <input type="text" class="form-control" id="First_Name__ID" name="First_Name__ID" placeholder="First Name*" required>
+	                <input type="text" class="form-control" name="First_Name" placeholder="First Name*" required>
 	            </div>
 			</div>
 			<div class="row row__ID">
 	            <div class="col">
-	                <input type="text" class="form-control" id="Last_Name__ID" name="Last_Name__ID" placeholder="Last Name*" required>
+	                <input type="text" class="form-control" name="Last_Name" placeholder="Last Name*" required>
 	            </div>
 			</div>
 			<div class="row row__ID">
 	            <div class="col">
-	                <input type="text" class="form-control" id=Phone__ID name="Phone__ID" placeholder="Phone*" required>
+	                <input type="text" class="form-control" name="Phone_Number" placeholder="Phone*" required>
 	            </div>
 			</div>
 			<div class="row row__ID">
 	            <div class="col">
-	                <input type="email" class="form-control" id=Email__ID name="Email__ID" placeholder="Email*" required>
+	                <input type="email" class="form-control" id=Email__ID name="Email" placeholder="Email*" required>
 	            </div>
 			</div>
 			<div class="row row__ID">
 	            <div class="col">
-	                <input type="text" class="form-control" id=Postcode__ID name="Postcode__ID" placeholder="Postcode*" required>
+	                <input type="text" class="form-control" name="Postcode" placeholder="Postcode*" required>
+	            </div>
+			</div>
+			<div class="row row__ID">
+	            <div class="col">
+	                <input type="text" class="form-control" name="Suburb" placeholder="Suburb*" required>
 	            </div>
 			</div>
 			<div class="row row__ID">
 	            <div class="col">
 	                <label class=label__ID>How did you find out about this study?</label><br>
-	                <select class="form-control" id=Study_find__ID Name=Study_find__ID required>
+	                <select class="form-control" Name=Study_find required>
 		                <option value=''> Please Select One</option>
 		                <option value='1' >Woolcock Institute website</option>
 		                <option value='2' >Sleep Physician referral</option>
@@ -60,7 +63,7 @@
 			</div>
 			<div class="row row__ID">
 	            <div class="col">
-	                <input type="text" class="form-control" id=Study_find_other__ID name="Study_find_other__ID" placeholder="Other">
+	                <input type="text" class="form-control" name="Study_find_other" placeholder="Other">
 	            </div>
 			</div>
 			<div class="row row__ID text-center">
@@ -78,28 +81,15 @@
 	        </div>
 	    </form>
 	</div>
--->
 </div>
 <script>
     function F__ID(){
-		return;
         //-------------------------------------
         var _op,_module=$vm.module_list[$vm.vm['__ID'].name];
-        //Vm Include:__BASE__/woolcock-imr/volunteer-database/common-code/form.js
         //-------------------------------------
         $('#D__ID').on('load',function(){
             $('#F__ID')[0].reset();
         })
-		/*
-        var external_registration_pid       =_module.var.external_registration_pid;
-        var screening_participant_setup_pid =_module.var.screening_participant_setup_pid;
-        var screening_participant_pid       =_module.var.screening_participant_pid;
-        var registration_thanks             =_module.var.registration_thanks;
-		*/
-		var external_registration_pid       ="20008858";
-        var screening_participant_setup_pid ="20009059";
-        var screening_participant_pid       ="20009058";
-        //var registration_thanks             ="";
         //-------------------------------------
 		$('#F__ID').submit(function(event){
 			//--------------------------------------------------------
@@ -111,69 +101,21 @@
 			dbv.S1=$('#Email__ID').val();
             dbv.S2=$('#Email__ID').val();
 			//--------------------------------------------------------
-			var req={cmd:"s1_s2_exist",db_pid:external_registration_pid,s1:dbv.S1,s2:dbv.S2};							//regidtration: 20008858
+			var req={cmd:"s1_s2_exist",db_pid:'91000087',s1:dbv.S1,s2:dbv.S2};							//regidtration: 91000087
             $VmAPI.request({data:req,callback:function(res){
                 if(res.ret==='0'){
-                    var req={cmd:"add_record_anonymous",db_pid:external_registration_pid,data:record,dbv:dbv};
+                    var req={cmd:"add_record_anonymous",db_pid:'91000087',data:data,dbv:dbv};
                     $VmAPI.request({data:req,callback:function(res){
-                        create_screening_participant_record(res);
-                        $vm.load_module_by_name(registration_thanks,$vm.root_layout_content_slot,{});
+						$vm.alert('Thank you for your registration. You will be contacted by one our team members shortly');
                     }});
                 }
                 else{
-                    alert('The email already exists, so you have already registered.')
+                    $vm.alert('The email already exists, so you have already registered.')
                 }
             }});
 			//--------------------------------------------------------
 		})
 		//--------------------------------------------------------
-        _after_submit=function(I,res,n,_dbv){
-            create_screening_participant_record(res);
-        }
-        //-------------------------------------
-        var create_screening_participant_record=function(res){
-            var registration_id=res.uid;
-            var row_data={Registration_ID:registration_id};
-            var dbv={S1:registration_id};
-            var req={cmd:"add_record_anonymous",db_pid:screening_participant_pid,data:row_data,dbv:dbv};			//screening_participant: 20009058
-            $VmAPI.request({data:req,callback:function(res2){
-                create_screening_participant_setup_record(registration_id,res2);
-            }})
-        }
-        //-------------------------------------
-        var create_screening_participant_setup_record=function(registration_id,res){
-			var username=res.uid+"-"+screening_participant_setup_pid;												//screening_participant_setup_pid: 20009059;
-            var password=$vm.vm_password(8,false);
-            var List="20009060,20009061,20009073,20009079,20009298,20009063,20009064,20009190,20009074,20009075,20009076,20009078,20009080,";
-            List+="20009081,20009083,20009084,20009085,20009086,20009087,20009088,20008713";
-            var data={Login_ID:username,Password:password,List:List};
-            var dbv={PUID:res.uid,S2:username,S3:password};
-            var req={cmd:"add_record_anonymous",db_pid:screening_participant_setup_pid,data:data,dbv:dbv};
-            $VmAPI.request({data:req,callback:function(res2){
-                send_email(username,password);
-            }})
-        }
-        //-------------------------------------
-        var send_email=function(username,password){
-            var From_Address="windfarmstudy@woolcock.org.au";
-            var From_Name="Woolcock Institute of Medical Research";
-            var To=$('#Email__ID').val();
-            var Title="Wind farms Registration";
-            var Body="Thank you for registering your interest in our research on wind farms and human health. To get started, please complete our online questionnaire which will allow us to assess whether you may be a suitable participant in this study. Simply click on the website link below and enter the provided Username and Password:<br />"
-    		Body+="&nbsp;<br />"
-    		Body+="&nbsp;<br />";
-            Body+="Website: https://rt.woolcock.org.au/online-questionnaires.html<br>";
-    		Body+="Username: "+username+"<br>";
-    		Body+="Password: "+password+"<br>";
-    		Body+="&nbsp;<br />"
-    		Body+=" If you are be unable to complete the questionnaire today, your answers will be saved and you can use the login details above to continue the questionnaire"
-        	Body+="<br>If you have any questions about completing our questionnaire, please email Windfarmstudy@woolcock.org.au"
-    		Body+="&nbsp;<br />"
-    		Body+="&nbsp;<br />"
-    		$VmAPI.request({data:{cmd:'send_email',From_Address:From_Address,From_Name:From_Name,To:To,Title:Title,Body:Body},callback:function(res){
-                //alert('Thank you for your registration. An email has been sent to '+$('#Email__ID').val()+' with instructions for next step.');
-            }})
-        }
     }
 </script>
 <style>
