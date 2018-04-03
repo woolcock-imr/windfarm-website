@@ -6,6 +6,16 @@
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
 		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
         <script>$.ajaxSetup({cache:true});$.get('version.html',function(v){ console.log(v); $vm={}; $vm.ver=v.trim().split(',');$.getScript('index.js?_sv='+$vm.ver[2],function(){vm_init();});},'text')</script>
+
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104832505-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'UA-104832505-1');
+		</script>
+
 	</head>
 	<body></body>
 </html>
