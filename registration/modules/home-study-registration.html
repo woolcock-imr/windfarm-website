@@ -41,8 +41,8 @@
 	                <select class="form-control" Name=Study_find required>
 		                <option value=''> Please Select One</option>
 		                <option value='1' >Woolcock Institute website</option>
+						<option value='3' >Advertising flier</option>
 		                <option value='2' >Sleep Physician referral</option>
-		                <option value='3' >Advertising flier</option>
 		                <option value='4' >Internet search</option>
 		                <option value='5' >Facebook</option>
 		                <option value='6' >LinkedIn</option>
@@ -85,8 +85,6 @@
 <script>
     function F__ID(){
         //-------------------------------------
-        var _op,_module=$vm.module_list[$vm.vm['__ID'].name];
-        //-------------------------------------
         $('#D__ID').on('load',function(){
             $('#F__ID')[0].reset();
         })
@@ -106,6 +104,7 @@
                 if(res.ret==='0'){
                     var req={cmd:"add_record_anonymous",db_pid:'91000087',data:data,dbv:dbv};
                     $VmAPI.request({data:req,callback:function(res){
+						send_alert_email();
 						$vm.alert('Thank you for your registration. You will be contacted by one our team members shortly');
                     }});
                 }
@@ -115,6 +114,20 @@
             }});
 			//--------------------------------------------------------
 		})
+		//--------------------------------------------------------
+		var send_alert_email=function(){
+            var From_Address="noresponse@woolcock.org.au";
+            var From_Name="Woolcock Institute of Medical Research";
+            var To="windfarmhomestudy@woolcock.org.au";
+            var Title="Wind farm home study registration";
+            var Body="A new registration has beee added into the database."
+    		Body+="&nbsp;<br>"
+    		Body+="&nbsp;<br>";
+			if($VmAPI.api_base=='https://cbs.wappsystem.com/dev/') From_Address="noresponse@wappsystem.com";
+			if($VmAPI.api_base=='https://cbs.wappsystem.com/dev/') To="zzm.vmiis@gmail.com";
+    		$VmAPI.request({data:{cmd:'send_email',From_Address:From_Address,From_Name:From_Name,To:To,Title:Title,Body:Body},callback:function(res){
+            }})
+        }
 		//--------------------------------------------------------
     }
 </script>
