@@ -1,21 +1,394 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>Woolcock Institute of Medical Research</title>
-		<meta charset="utf-8">
-		<meta name='viewport' content='width=device-width, initial-scale=1'>
-		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
-        <script>$.ajaxSetup({cache:true});$.get('version.html',function(v){ console.log(v); $vm={}; $vm.ver=v.trim().split(',');$.getScript('index.js?_sv='+$vm.ver[2],function(){vm_init();});},'text')</script>
+<html>
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <meta name="description" content="Woolcock">
+        <link rel="icon" href="data:,">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" />
+    </head>
+    <body>
+        <div id=header class=vm-header></div>
+        <div id=content><div id=vm_loader class="loader_0"></div></div>
+        <div id=footer></div>
+        <div id=components style='display:none'>
+            <div id=c_header>
+                <div class=vm-mobile>
+                    <span id=vm-mobile_title class=vm-mobile-title>Woolcock</span>
+                    <a id="vm-hamburger_button" class=vm-hamburger-button onclick="$vm.toggle()"><i class="fa fa-bars"></i></a>
+                </div>
+                <div style='max-width:1000px;margin-left:auto;margin-right:auto;'>
+                    <div class=vm-desk-logo>
+                        <div id=vm-logo-image></div>
+                    </div>
+                    <div menu id="vm-menu">
+                        <a href="?/home"><i class="fa fa-home"></i> Home</a>
+                        <a href="?/lab-study">Lab Study</a>
+                        <a href="?/home-study">Home Study</a>
+                        <a href="?/contact-us">Contact Us</a>
+                        <div class="vm-dropdown">
+                            <span class="vm-dropbtn">More <i class="fa fa-caret-down"></i></span>
+                            <div class="vm-dropdown-content">
+                                <a href="?/woolcock">About the Woolcock Institute</a>
+                                <a href="?/meet-the-team">Meet the team</a>
+                                <a href="?/news">News</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id=c_footer>
+                <span id=text_0></span>
+            </div>
+        </div>
+    </body>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
+    <script main>
+        //------------------------------------
+        $vm={};$VmAPI={};$vm.ver=[1.12,1.10];
+        $vm.start_time=new Date().getTime();
+        $vm.api_path_development="https://cbs.wappsystem.com/dev/";
+        $vm.api_path_production="https://rt.woolcock.org.au/pro/";
+        $vm.default_production="Yes";
+        $vm.qid='10000000';
+        $vm.vm_router=1;
+        if(window.location.hostname=='127.0.0.1' || window.location.hostname=='localhost') $vm.localhost=true;
+        //------------------------------------
+        $vm.module_links=[
+            //"https://apap-ohs.rt.org.au/modules.json",
+        ];
+        $vm.module_list={
+            "home":             {"url":"https://windfarm-website-dev.rt.org.au/modules/website/home.html"},
+            "lab-study":	  	{"url":"https://windfarm-website-dev.rt.org.au/modules/website/lab-study.html"},
+    		"home-study":	  	{"url":"https://windfarm-website-dev.rt.org.au/modules/website/home-study.html"},
+    		"contact-us":		{"url":"https://windfarm-website-dev.rt.org.au/modules/website/contact-us.html"},
+    		"woolcock":			{"url":"https://windfarm-website-dev.rt.org.au/modules/website/woolcock.html"},
+    		"meet-the-team":	{"url":"https://windfarm-website-dev.rt.org.au/modules/website/meet-the-team.html"},
+    		"news":	  			{"url":"https://windfarm-website-dev.rt.org.au/modules/website/news.html"},
+            "lab-study-registration":  	{"table_id":"20008858","url":"https://windfarm-website-dev.rt.org.au/modules/registration/lab-study-registration.html"},
+    		"home-study-registration":  {"table_id":"91000087","url":"https://windfarm-website-dev.rt.org.au/modules/registration/home-study-registration.html"}
+        }
+        //------------------------------------
+        $vm.local_url=function(url){
+            var urlR=url;
+            if($vm.localhost==true){
+                urlR=urlR.replace('https://windfarm-website-dev.rt.org.au/','http://127.0.0.1:8000/woolcock-imr/windfarm-website-dev/');
+            }
+            return urlR;
+        }
+        //------------------------------------
+        for(p in $vm.module_links) $vm.module_links[p]=$vm.local_url($vm.module_links[p]);
+        for(p in $vm.module_list) $vm.module_list[p].url=$vm.local_url($vm.module_list[p].url);
+        //------------------------------------
+        $vm.default_title="Woolcock Institute of Medical Research";
+        $('#text_0').html("Copyright &copy; "+(new Date()).getFullYear()+", Woolcock Institute of Medical Research");
+        //------------------------------------
+        $('#c_header').contents().appendTo('#header');
+        $('#c_footer').contents().appendTo('#footer');
+        //------------------------------------
+        $('#vm-mobile_title').on('click',function(){ $vm.load_module_v2('home',$vm.root_layout_content_slot,{}) })
+        $('.vm-desk-logo').on('click',function(){ $vm.load_module_v2('home',$vm.root_layout_content_slot,{}) })
+        //------------------------------------
+        $vm.root_layout_content_slot='content'
+        $vm.root_layout_footer='footer';
+        //---------------------------------------------
+        var set_height=function(){
+            var header_height=$('#header').outerHeight(); $vm.header_height=header_height;
+            var footer_height=$('#footer').outerHeight(); $vm.footer_height=footer_height;
+            $vm.min_height=($(window).height()-header_height-footer_height);
+            if($vm.active_id!=undefined){
+                $('#D'+$vm.active_id).css('height',($('body').height()-$('#header').outerHeight()-$('#footer').outerHeight())+"px");
+            }
+        }
+        //------------------------------------
+        set_height();
+        //-----------------------------------------
+        $vm.start=function(){
+            $vm.init_v3({callback:function(){
+               $vm.init_status=1;
+               $vm.show_user();
+           }})
+        }
+        //------------------------------------
+        $vm.menu_click=function(href){
+            href=href.replace('?\/','');
+            href=href.replace(/\//g,'_');
+            $vm.load_module_v2(href,$vm.root_layout_content_slot,{});
+        }
+        //------------------------------------
+        $vm.show=function(id){
+            $vm.active_id=id;
+            document.title=$vm.default_title;
+            $("meta[name='description']").attr("content", "Woolcock Institute of Medical Research");
+            $("body").removeClass();
+            $("body").addClass('body_background_default');
+            if(id!=undefined && $vm.vm[id]!=undefined && $vm.vm[id].show!=undefined) $vm.vm[id].show();
+            if(id!=undefined){
+                $('#D'+id).css('overflow','auto');
+                $('#D'+id).css('min-height','unset');
+                $('#D'+id).css('height',($('body').height()-$('#header').outerHeight()-$('#footer').outerHeight())+"px");
+            }
+        }
+        //------------------------------------
+        $vm.show();
+        window.onresize=function(){set_height();}
+        //------------------------------------
+    </script>
+    <style main>
+        :root {
+            --menu-color: #000;
+            --menu-hover-color: #29eca6;
+            --menu-hover-background-color: #555;
 
+            --dropdown-menu-color:#666;
+            --dropdown-menu-background-color:#f9f9f9;
+            --dropdown-menu-hover-color:#555;
+            --dropdown-menu-hover-background-color:#ddd;
+            --dropdown-menu-border-color:#ddd;
 
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104832505-1"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		  gtag('config', 'UA-104832505-1');
-		</script>
-
-	</head>
-	<body></body>
+            --mobile-title-color:#fff;
+            --mobile-hamburger-color:#fff;
+            --mobile-menu-background-color:#1c3144;
+            --mobile-break-point:700px;
+        }
+        html,body{ margin:0; padding:0; height:100%; font-family:Arial;}
+        body{background-size: cover; background-repeat: repeat-x; background-position: center bottom; background-attachment: fixed;}
+        .body_background_default{ background-image: url(https://image.rt.org.au/bg001.jpg); }
+        #vm-logo-image{
+            margin-top: -32px;
+            width:100px;
+            height:100px;
+            background: url('https://image.rt.org.au/logo.windfarm.png') no-repeat top center;
+            background-size: cover;
+            float:left;
+        }
+        #content{
+        }
+        #vm-logo-label-A{
+            font-family: Arial, sans-serif;
+            color:#fff;
+            font-size: 200%;
+            line-height:10px;
+            display:inline-block;
+        }
+        #vm-logo-label-B{
+            font-family: Arial, sans-serif;
+            color:#fff;
+            font-size: 93%;
+            line-height:80%;
+            display:inline-block;
+        }
+        #footer{
+            height:24px;
+            color: #fff;
+            padding: 3px;
+            background-color: #333;
+            font:80%/18px arial;
+            text-align: center;
+        }
+        /*----------------------*/
+        .vm-header{height:105px;background:rgba(255,255,255,1);}
+        .vm-desk-logo{ display:inline-block;float:left;padding:36px 30px 0 30px;cursor:pointer;}
+        #vm-menu{ float:left;padding:50px 30px 0 30px;}
+        #vm-menu>a{ margin-right:50px}
+        @media screen and (max-width: 900px){
+            .vm-header{height:50px;}
+            .vm-desk-logo{display:none;}
+            #vm-menu{padding:0;}
+            #vm-menu>a{ margin-right:0px}
+        }
+        /*----------------------*/
+    </style>
+    <script menu>
+        //------------------------------------
+        $('.vm-dropdown').on('click',function(e){
+            var d=$(this).find('.vm-dropdown-content');
+            if(d.css('display')=='block') d.css('display','none');
+            else d.css('display','block');
+        })
+        $(".vm-dropdown").mouseleave(function (){  $(".vm-dropdown-content").hide();  })
+        $(".vm-dropdown-content").mouseleave(function (){  $(this).hide();  })
+        $vm.toggle=function() {
+            var x = document.getElementById("vm-menu");
+            if(x.className==='') x.className="responsive";
+            else x.className="";
+        }
+        //------------------------------------
+        $('#vm-menu a').on('click',function(e){
+            e.preventDefault();
+            var href=$(this).attr('href');
+            if(href!=undefined && href!=''){
+                if($vm.menu_click!=undefined) $vm.menu_click(href);
+            }
+            $vm.toggle();
+        })
+        //------------------------------------
+        $vm.menu_click=function(href){
+            href=href.replace('?\/','');
+            href=href.replace(/\//g,'_');
+            $vm.load_module_v2(href,$vm.root_layout_content_slot,{});
+        }
+        //------------------------------------
+    </script>
+    <style menu>
+        /*menu*/
+        #vm-menu {
+            overflow: hidden;
+            display:inline-block;
+            float:left;
+        }
+        #vm-menu > a {
+            color:var(--menu-color);
+            float: left;
+            display: block;
+            text-align: center;
+            padding: 10px 8px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor:pointer;
+        }
+        .vm-dropbtn {
+            color:var(--menu-color);
+            display: block;
+            font-size: 14px;
+            padding: 10px 8px;
+            background-color: inherit;
+            font-family: inherit;
+            cursor:pointer;
+        }
+        .vm-dropdown {
+            color:var(--menu-color);
+            float: left;
+            overflow: hidden;
+            border: none;
+            outline: none;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+        .vm-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--dropdown-menu-background-color);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            max-height: 1000px;
+            overflow-y: hidden;
+            border-radius: 0px 3px 3px 3px;
+            animation: vm-menu-show 1.8s;
+        }
+        .vm-dropdown-content a {
+            float: none;
+            font-size: 14px;
+            color: var(--dropdown-menu-color)!important;
+            padding: 3px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            cursor:pointer;
+            border-bottom:1px solid var(--dropdown-menu-border-color);
+        }
+        #vm-menu > a:hover, .vm-dropdown:hover .vm-dropbtn {
+          background-color:var(--menu-hover-background-color);
+          color:var(--menu-hover-color);
+          border-radius:4px;
+        }
+        .vm-dropdown-content a:hover {
+            background-color: var(--dropdown-menu-hover-background-color);
+            color: var(--dropdown-menu-hover-color);
+            text-decoration: none;
+        }
+        .vm-hide{
+            display:none!Important;
+        }
+        .vm-mobile{
+            display:none;
+        }
+        /*----------------------*/
+        @media screen and (max-width: 900px) {
+            .vm-mobile{
+                display:block;
+            }
+            .vm-mobile-title{
+                color:var(--mobile-title-color);
+                font-size: 28px;
+                display:inline-block;
+                padding: 3px 0 3px 12px;
+                cursor: pointer;
+            }
+            #vm-hamburger_button{
+                float: right;
+                display: block;
+                font-size:28px;
+                padding:5px 16px 3px 16px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                cursor:pointer;
+                color:var(--mobile-hamburger-color);
+            }
+            #vm-menu {
+                width:100%;
+                margin-top:0px;
+                margin-right:0px;
+                margin-left:0px;
+                padding-left:15px;
+                padding-right:15px;
+                overflow: hidden;
+                background: var(--mobile-menu-background-color);
+                display:block;
+                float:unset;
+            }
+            #vm-menu a, .vm-dropdown .vm-dropbtn {
+                display: none;
+            }
+            #vm-menu.responsive {
+                position: relative;
+                animation: vm-menu-show 1.8s;
+                z-index: 1;
+            }
+            #vm-menu.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+            #vm-menu.responsive .vm-dropdown {float: none;}
+            #vm-menu.responsive .vm-dropdown-content {position: relative;}
+            #vm-menu.responsive .vm-dropdown .vm-dropbtn {
+                display: block;
+                width: 100%;
+                text-align: left;
+            }
+            .vm-mobile{
+                display:block;
+            }
+        }
+        @keyframes vm-menu-show {
+            from {max-height: 0px;}
+            to {max-height: 1000px;}
+        }
+    </style>
+    <script boot>
+        //------------------------------------
+        var url1="https://www.vmiis.com/modules/starter/app01.html"; if($vm.localhost) url1="http://127.0.0.1:8000/vmiis/your-company-business-portal/modules/starter/app01.html";
+        var urls=[url1]; $vm.module_start_id=1;
+        //---------------------------------------------
+        $(urls).each(function(index,url){
+            var ver=localStorage.getItem(url+"ver");
+            var txt=localStorage.getItem(url+"txt");
+            if(ver!=$vm.ver[0] || txt==null || $vm.localhost==true){
+                $.get(url+'?_='+new Date().getTime(),function(new_txt){
+                    localStorage.setItem(url+"txt",new_txt);
+                    localStorage.setItem(url+"ver",$vm.ver[0]);
+                    console.log('loading from url. '+url);
+                    $('#content').append(new_txt.replace(/__ID/g,'_'+index));
+                },'text');
+            }
+            else{
+                console.log('loading from storage. '+url);
+                $('#content').append(txt.replace(/__ID/g,'_'+index));
+            }
+            //---------------------------------------------
+        })
+    </script>
 </html>
