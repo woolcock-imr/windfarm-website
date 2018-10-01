@@ -5,6 +5,35 @@
         <meta name="description" content="Woolcock">
         <link rel="icon" href="data:,">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" />
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104832505-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'UA-104832505-1');
+		</script>
+
+
+        <!-- Facebook Pixel Code -->
+        <script>
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '738933283142304');
+          fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+          src="https://www.facebook.com/tr?id=738933283142304&ev=PageView&noscript=1"
+        /></noscript>
+        <!-- End Facebook Pixel Code -->
+
+
     </head>
     <body>
         <div id=header class=vm-header></div>
@@ -44,7 +73,7 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
     <script main>
         //------------------------------------
-        $vm={};$VmAPI={};$vm.ver=[1.12,1.10];
+        $vm={};$VmAPI={};$vm.ver=[1.13,1.11];
         $vm.start_time=new Date().getTime();
         $vm.api_path_development="https://cbs.wappsystem.com/dev/";
         $vm.api_path_production="https://rt.woolcock.org.au/pro/";
