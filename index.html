@@ -73,7 +73,7 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
     <script main>
         //------------------------------------
-        $vm={};$VmAPI={};$vm.ver=[1.13,1.11];
+        $vm={};$VmAPI={};$vm.ver=[1.14,1.12];
         $vm.start_time=new Date().getTime();
         $vm.api_path_development="https://cbs.wappsystem.com/dev/";
         $vm.api_path_production="https://rt.woolcock.org.au/pro/";
@@ -86,21 +86,21 @@
             //"https://apap-ohs.rt.org.au/modules.json",
         ];
         $vm.module_list={
-            "home":             {"url":"https://windfarm-website-dev.rt.org.au/modules/website/home.html"},
-            "lab-study":	  	{"url":"https://windfarm-website-dev.rt.org.au/modules/website/lab-study.html"},
-    		"home-study":	  	{"url":"https://windfarm-website-dev.rt.org.au/modules/website/home-study.html"},
-    		"contact-us":		{"url":"https://windfarm-website-dev.rt.org.au/modules/website/contact-us.html"},
-    		"woolcock":			{"url":"https://windfarm-website-dev.rt.org.au/modules/website/woolcock.html"},
-    		"meet-the-team":	{"url":"https://windfarm-website-dev.rt.org.au/modules/website/meet-the-team.html"},
-    		"news":	  			{"url":"https://windfarm-website-dev.rt.org.au/modules/website/news.html"},
-            "lab-study-registration":  	{"table_id":"20008858","url":"https://windfarm-website-dev.rt.org.au/modules/registration/lab-study-registration.html"},
-    		"home-study-registration":  {"table_id":"91000087","url":"https://windfarm-website-dev.rt.org.au/modules/registration/home-study-registration.html"}
+            "home":             {"url":"https://windfarm-website.rt.org.au/modules/website/home.html"},
+            "lab-study":	  	{"url":"https://windfarm-website.rt.org.au/modules/website/lab-study.html"},
+    		"home-study":	  	{"url":"https://windfarm-website.rt.org.au/modules/website/home-study.html"},
+    		"contact-us":		{"url":"https://windfarm-website.rt.org.au/modules/website/contact-us.html"},
+    		"woolcock":			{"url":"https://windfarm-website.rt.org.au/modules/website/woolcock.html"},
+    		"meet-the-team":	{"url":"https://windfarm-website.rt.org.au/modules/website/meet-the-team.html"},
+    		"news":	  			{"url":"https://windfarm-website.rt.org.au/modules/website/news.html"},
+            "lab-study-registration":  	{"table_id":"20008858","url":"https://windfarm-website.rt.org.au/modules/registration/lab-study-registration.html"},
+    		"home-study-registration":  {"table_id":"91000087","url":"https://windfarm-website.rt.org.au/modules/registration/home-study-registration.html"}
         }
         //------------------------------------
         $vm.local_url=function(url){
             var urlR=url;
             if($vm.localhost==true){
-                urlR=urlR.replace('https://windfarm-website-dev.rt.org.au/','http://127.0.0.1:8000/woolcock-imr/windfarm-website-dev/');
+                urlR=urlR.replace('https://windfarm-website.rt.org.au/','http://127.0.0.1:8000/woolcock-imr/windfarm-website/');
             }
             return urlR;
         }
