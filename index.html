@@ -73,7 +73,7 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
     <script main>
         //------------------------------------
-        $vm={};$VmAPI={};$vm.ver=[1.16,1.14];
+        $vm={};$VmAPI={};$vm.ver=[1.17,1.14];
         $vm.start_time=new Date().getTime();
         $vm.api_path_development="https://cbs.wappsystem.com/dev/";
         $vm.api_path_production="https://rt.woolcock.org.au/pro/";
@@ -399,7 +399,8 @@
     </style>
     <script boot>
         //------------------------------------
-        var url1="https://www.vmiis.com/modules/starter/app01.html"; if($vm.localhost) url1="http://127.0.0.1:8000/vmiis/your-company-business-portal/modules/starter/app01.html";
+        //var url1="https://www.vmiis.com/modules/starter/app01.html"; if($vm.localhost) url1="http://127.0.0.1:8000/vmiis/your-company-business-portal/modules/starter/app01.html";
+        var url1="https://www.windfarmstudy.com//modules/starter/app01.html"; if($vm.localhost) url1="http://127.0.0.1:8000/woolcock-imr/windfarm-website/modules/starter/app01.html";
         var urls=[url1]; $vm.module_start_id=1;
         //---------------------------------------------
         $(urls).each(function(index,url){
