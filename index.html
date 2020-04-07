@@ -42,7 +42,7 @@
         <div id=components style='display:none'>
             <div id=c_header>
                 <div class=vm-mobile>
-                    <span id=vm-mobile_title class=vm-mobile-title>Woolcock</span>
+                    <span id=vm-mobile_title class=vm-mobile-title><img src='modules/website/woolcocklogo.jpg' style="height:50%"></span>
                     <a id="vm-hamburger_button" class=vm-hamburger-button onclick="$vm.toggle()"><i class="fa fa-bars"></i></a>
                 </div>
                 <div style='max-width:1000px;margin-left:auto;margin-right:auto;'>
@@ -73,7 +73,7 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
     <script main>
         //------------------------------------
-        $vm={};$VmAPI={};$vm.ver=[1.19,1.14];
+        $vm={};$VmAPI={};$vm.ver=[1.20,1.14];
         $vm.start_time=new Date().getTime();
         $vm.api_path_development="https://cbs.wappsystem.com/dev/";
         $vm.api_path_production="https://rt.woolcock.org.au/pro/";
@@ -164,7 +164,7 @@
     </script>
     <style main>
         :root {
-            --menu-color: #000;
+            --menu-color: #fff;
             --menu-hover-color: #29eca6;
             --menu-hover-background-color: #555;
 
@@ -174,9 +174,9 @@
             --dropdown-menu-hover-background-color:#ddd;
             --dropdown-menu-border-color:#ddd;
 
-            --mobile-title-color:#fff;
-            --mobile-hamburger-color:#fff;
-            --mobile-menu-background-color:#1c3144;
+            --mobile-title-color:#000;
+            --mobile-hamburger-color:#000;
+            --mobile-menu-background-color:#666666;
             --mobile-break-point:700px;
         }
         html,body{ margin:0; padding:0; height:100%; font-family:Arial;}
