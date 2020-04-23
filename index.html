@@ -42,7 +42,7 @@
         <div id=components style='display:none'>
             <div id=c_header>
                 <div class=vm-mobile>
-                    <span id=vm-mobile_title class=vm-mobile-title><img src='modules/website/woolcocklogo.jpg' style="height:20px"></span>
+                    <span id=vm-mobile_title class=vm-mobile-title><img src='https://image.rt.org.au/logo.windfarm.png' style="height:50px;"></span>
                     <a id="vm-hamburger_button" class=vm-hamburger-button onclick="$vm.toggle()"><i class="fa fa-bars"></i></a>
                 </div>
                 <div style='max-width:1000px;margin-left:auto;margin-right:auto;'>
@@ -164,7 +164,7 @@
     </script>
     <style main>
         :root {
-            --menu-color: #fff;
+            --menu-color: #000;
             --menu-hover-color: #29eca6;
             --menu-hover-background-color: #555;
 
@@ -340,9 +340,11 @@
             }
             .vm-mobile-title{
                 color:var(--mobile-title-color);
+                float:right;
+                right:0;
                 font-size: 28px;
                 display:inline-block;
-                padding: 3px 0 3px 12px;
+                padding: 5px 16px 3px 16p;
                 cursor: pointer;
             }
             #vm-hamburger_button{
@@ -351,7 +353,6 @@
                 font-size:28px;
                 padding:5px 16px 3px 16px;
                 position: absolute;
-                right: 0;
                 top: 0;
                 cursor:pointer;
                 color:var(--mobile-hamburger-color);
